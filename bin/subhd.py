@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 '''Main program for subhd.py
 '''
+
 import argparse
-from guessit import guess_video_info
+from guessit import guessit
 from subhd_py.core import SubHDDownloader
 from subhd_py.compressor import ZIPFileHandler, RARFileHandler
 from subhd_py.sanitizer import to_unicode, to_chs, to_cht, reset_index, set_utf8_without_bom
@@ -65,7 +66,7 @@ def get_guessed_video_name(video_name):
                  otherwise the series title, usually as drama name.
 
     '''
-    video_info = guess_video_info(video_name)
+    video_info = guessit(video_name)
     return video_info.get('title') or video_info.get('series')
 
 def get_subtitle(keyword, is_filename=True, auto_download=False,
