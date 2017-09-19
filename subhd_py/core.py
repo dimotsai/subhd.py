@@ -14,7 +14,7 @@ class SubHDDownloader(object):
     def __init__(self):
         self.dl_lookup_url = 'http://subhd.com/ajax/down_ajax'
         self.search_url = 'http://subhd.com/search/'
-        self.subid_re = re.compile(r'^/a/(\d+)$')
+        self.subid_re = re.compile(r'^/ar0/(\d+)$')
         self.org_re = re.compile(r'^/zu/(\d+)$')
         self.info_re = re.compile(ur'\u683c\u5f0f\uff1a(\S+)\s' +
                                   ur'\u7248\u672c\uff1a(\S+)',
@@ -32,7 +32,7 @@ class SubHDDownloader(object):
         '''
         escaped_keyword = quote(keyword)
         page = requests.get(self.search_url + escaped_keyword)
-        soup = BeautifulSoup(page.content)
+        soup = BeautifulSoup(page.content, "lxml")
 
         page_list = soup.find(class_='col-md-9').childGenerator()
         items = []
