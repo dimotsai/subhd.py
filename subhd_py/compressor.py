@@ -57,7 +57,16 @@ class BaseCompressedFileHandler(object):
             raw_sub: the string data of the subtitle.
         '''
         info = self.list_info()
-        candidate = max(info, key=lambda x: x['size'])
+        
+        info_sub = []
+        
+        sub_name = '.srt'
+        for candidate in info:
+           if candidate['name'].find(sub_name) > 0:
+               info_sub.append(candidate)
+
+        candidate = max(info_sub, key=lambda x: x['size'])
+        print candidate
         return (candidate['name'], self.extract(candidate['name']))
 
 class RARFileHandler(BaseCompressedFileHandler):
